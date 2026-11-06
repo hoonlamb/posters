@@ -501,7 +501,9 @@ body.dopen .mapv{right:var(--dw)}
 .dsub i{flex:none;width:7px;height:7px;border-radius:50%;background:var(--c)}
 .dmeta dl{grid-template-columns:42px 1fr;gap:3px 10px;font-size:12.5px;line-height:1.5}
 .dmeta dt{color:var(--faint)}
-.dst{margin-left:4px;font-weight:500;color:var(--faint)}
+.dst{margin-left:4px;font-weight:500;color:var(--faint);white-space:nowrap}
+.dper,.dcnt{white-space:nowrap}
+.dcnt{flex:none}
 .dst.on{color:var(--text)}
 .dfoot{display:flex;align-items:center;justify-content:space-between;margin-top:9px;font-size:12px;color:var(--faint);font-variant-numeric:tabular-nums}
 .card .pin{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:rgba(20,20,22,.6);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:none;color:#fff}.card .pin .pi path:first-child{fill:currentColor}
@@ -1101,11 +1103,11 @@ function openDrawer(id, opts) {
       <img id="dimg" class="sk" src="${esc(d.th||d.img)}" alt="${esc(d.title)} 포스터">
       <button class="nav r" id="dn" aria-label="다음"${idx<0||idx>=curList.length-1?' disabled':''}><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 2l5 5-5 5"/></svg></button></div>
     <div class="dmeta" id="dmeta">
-      <dl><dt>기간</dt><dd>${period(d)} <b class="dst ${d.st==='진행중'?'on':''}">${d.st}</b></dd>
+      <dl><dt>기간</dt><dd><span class="dper">${(() => { const y = TODAY.slice(0,4), f = s => s.slice(0,4) === y ? fmt(s).slice(5) : fmt(s); return d.start === d.end ? f(d.start) : f(d.start)+' ~ '+(d.start.slice(0,4) === d.end.slice(0,4) ? fmt(d.end).slice(5) : fmt(d.end)); })()}</span> <b class="dst ${d.st==='진행중'?'on':''}">${d.st}</b></dd>
       ${d.fee?`<dt>관람료</dt><dd>${feeLine}</dd>`:''}
       ${d.artist?`<dt>${d.kind==='대학'?'학과':'작가'}</dt><dd>${esc(d.artist)}</dd>`:''}
       <dt>분야</dt><dd>${d.genre}${tg.length?' · '+tg.join(' · '):''}</dd>
-      ${d.gq===0?'<dt>지도 핀</dt><dd>학교 캠퍼스 기준이에요</dd>':''}</dl>
+      ${d.gq===0?'<dt>지도 핀</dt><dd>캠퍼스 기준이에요</dd>':''}</dl>
       ${rel.length?`<div class="drel"><h5>${esc(relT)} 다른 전시 <span>${rel.length}</span></h5><div class="drs">${rel.map(x => `<button class="rt${x.st==='종료'?' past':''}" data-rel="${x.id}" title="${esc(x.title)}" aria-label="${esc(x.title)}"><img src="${esc(x.th||x.img)}" alt="" loading="lazy" decoding="async"></button>`).join('')}</div></div>`:''}
       <div class="dfoot"><span class="dcnt">${idx>=0?`${idx+1} / ${curList.length}`:''}</span><span class="dlinks">${d.user?'<button class="dl" id="ddel">삭제</button>':''}${d.geo?'<button class="dlk" id="dmap">지도에서 보기</button>':''}${d.user?'':'<button class="dlk" id="dcopy">링크 복사</button>'}${d.sz?`<a class="dlk" href="${esc(d.img)}" target="_blank" rel="noopener">원본${d.sz>4e6?' '+(d.sz/1e6).toFixed(0)+'MB':''}</a>`:''}${d.url?`<a class="dlk" href="${esc(d.url)}" target="_blank" rel="noopener">${d.ul?'기관 전시 목록':'전시 상세'} &#8599;</a>`:''}</span></div></div>`;
   dd.classList.add('on'); dd.setAttribute('aria-hidden','false'); document.body.classList.add('dopen');
