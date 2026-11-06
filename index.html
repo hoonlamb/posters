@@ -645,12 +645,79 @@ body.dopen .mapv{right:var(--dw)}
 @media (min-width:861px) and (max-width:1360px){:root{--scope:40px}.drawer{top:calc(var(--top) + var(--scope))}.main{padding-top:calc(var(--top) + var(--scope) + 18px)}.scope{-webkit-mask-image:linear-gradient(90deg,#000 94%,transparent);mask-image:linear-gradient(90deg,#000 94%,transparent)}.scope{top:var(--top);left:var(--side);right:0;height:40px;padding:0 var(--pad);border-bottom:1px solid var(--line);background:rgba(14,14,16,.82);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur)}}
 @media (pointer:coarse){.dlk,.ibtn{min-height:40px}.dl{min-height:40px}}
 @media (max-width:480px){.dfoot{flex-wrap:wrap}.dlinks{width:100%;justify-content:flex-start}}
+
+/* ---------- 달력 탭: 시작하는 날 칸에 포스터가 겹쳐 쌓인다 ---------- */
+body[data-tab=cal] .sz{display:none}
+.cal{max-width:1680px}
+.calh{display:flex;align-items:center;gap:22px;margin:0 0 12px;flex-wrap:wrap}
+.cm{display:flex;align-items:flex-start;gap:6px;line-height:.8}
+.cm b{font-size:60px;font-weight:800;letter-spacing:-.05em;font-variant-numeric:tabular-nums}
+.cm span{font-size:15px;font-weight:700;letter-spacing:-.01em;margin-top:2px}
+.calh p{flex:1;min-width:220px;margin:0;display:flex;flex-wrap:wrap;gap:4px 18px;color:var(--dim);font-size:14px;line-height:1.4;word-break:keep-all}
+.calh p b{color:#fff;font-weight:700;font-variant-numeric:tabular-nums;margin-left:5px}
+.calh p .tk b{color:var(--c-grad)}
+.cnav{display:flex;gap:6px;align-items:center;margin-bottom:2px}
+.cnav .ib{border:1px solid var(--line2)}
+.cnav .ib:disabled{opacity:.3;cursor:default}
+.cnav .ib svg{width:13px;height:13px}
+.cw,.cg{display:grid;grid-template-columns:repeat(7,minmax(0,1fr))}
+.cw{padding:0 0 7px;font-size:11px;font-weight:600;letter-spacing:.08em;color:var(--faint)}
+.cw span{padding-left:7px}
+.cg{border-top:1px solid var(--line2);border-left:1px solid var(--line2)}
+.cd{position:relative;height:var(--rh,150px);border-right:1px solid var(--line2);border-bottom:1px solid var(--line2);min-width:0;overflow:hidden}
+body[data-tab=cal] .main{padding-bottom:14px}
+.cd.gone .dn{opacity:.45}.cd.gone .cstk{opacity:.5}
+.cd.today{background:rgba(255,255,255,.06);box-shadow:inset 0 0 0 2px #fff}
+.cd.today .tl{position:absolute;left:38px;top:7px;z-index:14;font-size:11px;font-weight:700;color:#fff;pointer-events:none}
+.cd.out{background:rgba(255,255,255,.025)}
+.dn{position:absolute;left:7px;top:6px;z-index:14;font-size:13px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--dim);pointer-events:none}
+.cd.we .dn{color:var(--faint)}
+.cd.today .dn{left:4px;top:4px;padding:1px 6px;border-radius:999px;background:#fff;color:#08080a}
+.cstk{position:absolute;inset:26px 8px 9px;z-index:1;padding:0;border:0;background:none;cursor:pointer}
+.cstk img{position:absolute;left:50%;top:50%;max-width:84%;max-height:92%;border-radius:2px;background:#1c1c1f;box-shadow:0 1px 0 rgba(255,255,255,.06),0 8px 20px rgba(0,0,0,.5);transition:transform .55s var(--ease),filter .3s}
+.cstk img.past{filter:grayscale(1) brightness(.7)}
+.cstk:focus-visible{outline:2px solid #fff;outline-offset:3px;border-radius:4px}
+.cn{position:absolute;right:7px;top:6px;pointer-events:none;z-index:14;min-width:18px;height:18px;padding:0 5px;border-radius:999px;background:rgba(255,255,255,.14);color:var(--text);font-size:11px;font-weight:700;line-height:18px;text-align:center;font-variant-numeric:tabular-nums}
+.cd.run::after{content:'';position:absolute;left:0;right:0;bottom:5px;height:2px;background:var(--rc,#fff);pointer-events:none;z-index:13}
+.cd.run.rs::after{left:10px}
+.cd.run.re::after{right:12px}
+.cd.run.re::before{content:'';position:absolute;right:8px;bottom:2px;border:4px solid transparent;border-left:7px solid var(--rc,#fff);border-right:0;z-index:13;pointer-events:none}
+.calmsg{padding:40px 0 0;color:var(--dim);font-size:14px}
+@media (max-width:860px){
+  .calh{gap:12px;margin-bottom:12px}
+  .cm b{font-size:40px}
+  .cm span{font-size:12px}
+  .calh{gap:10px 14px;margin-bottom:8px}
+  .calh p{order:3;flex-basis:100%;font-size:12px;gap:2px 12px}
+  .cw{font-size:9px;letter-spacing:.02em}.cw span{padding-left:3px}
+  .cd.today .tl{left:2px;top:auto;bottom:2px;font-size:9px}
+  .dn{left:3px;top:3px;font-size:10px}
+  .cd.today .dn{left:2px;top:2px;padding:0 4px}
+  .cd{overflow:hidden}
+  .cstk{inset:17px 4px 6px}
+  .cstk img{max-width:90%;box-shadow:0 4px 10px rgba(0,0,0,.5)}
+  .cn{right:3px;top:3px;min-width:14px;height:14px;padding:0 3px;font-size:9px;line-height:14px}
+  .cd.run::after{bottom:2px}.cd.run.re::before{bottom:-1px;right:2px}
+}
+
+/* ---------- 왼쪽 필터 열고 닫기(데스크톱) ---------- */
+.stog{display:none;width:30px;height:30px;margin-right:12px;place-items:center;border-radius:8px;color:var(--dim);transition:color .15s,background .15s}
+.stog:hover{color:#fff;background:rgba(255,255,255,.08)}
+.stog svg{width:17px;height:17px}
+@media (min-width:861px){
+  .stog{display:grid}
+  body.sidecl{--side:0px}
+  body.sidecl .side{display:none}
+  .search:hover input,.search:focus-within input,.search input:not(:placeholder-shown){width:150px}
+}
+@media (min-width:1361px){.scope{left:calc(248px + 30px);right:calc(var(--pad) + var(--tabsw,300px))}} /* 빠른 필터 줄이 오른쪽 탭과 겹치지 않게 */
 </style>
 </head>
 <body>
 <h1 class="vh">전시 포스터 아카이브</h1>
 <header class="top">
   <button class="filter-btn" id="fbtn" aria-label="필터 열기">필터</button>
+  <button class="stog" id="stog" aria-label="왼쪽 필터 닫기" aria-expanded="true" title="왼쪽 필터 열고 닫기"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="14" height="12" rx="2"/><path d="M7 3v12"/></svg></button>
   <label class="search">
     <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="7" cy="7" r="5"/><path d="M11 11l3.5 3.5"/></svg>
     <input id="q" aria-label="전시, 학교, 학과, 장소, 월 검색" type="search" placeholder="학교·전시·월 검색" autocomplete="off">
@@ -659,6 +726,7 @@ body.dopen .mapv{right:var(--dw)}
   <div class="sp"></div>
   <div class="seg tabs" role="tablist" id="tabs"><i class="thumb"></i>
     <button role="tab" data-t="board" aria-selected="true">보드</button>
+    <button role="tab" data-t="cal" aria-selected="false">달력</button>
     <button role="tab" data-t="map" aria-selected="false">지도</button>
     <button role="tab" data-t="pins" aria-selected="false">핀 <span id="pn">0</span></button>
   </div>
@@ -1065,6 +1133,93 @@ function renderPins() {
     : `<div class="empty">아직 고정한 포스터가 없어요.<br>포스터를 열고 오른쪽 위 핀 버튼을 누르면 여기에 모여요.</div>`;
   if (!RM) document.querySelectorAll('.pins .card').forEach((f,i) => f.animate([{opacity:0,transform:'translateY(14px)'},{opacity:1,transform:'none'}], {duration:380, delay:Math.min(i*40,320), easing:EASE, fill:'backwards'}));
 }
+
+/* ---------- 달력: 시작하는 날 칸에 포스터가 겹쳐 쌓이고, 맨 위 장이 들렸다가 맨 뒤로 들어간다 ---------- */
+let CALM = '', CALT = 0, CALTICK = 0;
+const CALR = [0, -5, 4, -3, 6];
+const calK = () => innerWidth <= 860 ? .45 : 1; // 폰 칸은 좁아서 부채꼴을 줄인다
+const calPose = (im, j) => { const k = calK(); im.style.transform = `translate(-50%,-50%) translate(${j*5*k}px,${-j*4*k}px) rotate(${CALR[j]*k}deg)`; im.style.zIndex = 10 - j; im.dataset.j = j; };
+const CATC = {'국공립':'var(--c-pub)','사립':'var(--c-pri)','행사':'var(--c-evt)','졸업 전시':'var(--c-grad)','학교 전시':'var(--c-sch)'};
+function renderCal() {
+  clearInterval(CALT);
+  const list = apply(), now = TODAY.slice(0, 7);
+  const ms = [...new Set(list.map(d => d.start.slice(0, 7)))].sort();
+  if (!CALM) CALM = ms.includes(now) ? now : (ms.find(m => m >= now) || ms[ms.length - 1] || now);
+  const [y, m] = CALM.split('-').map(Number);
+  const lead = (new Date(y, m - 1, 1).getDay() + 6) % 7, days = new Date(y, m, 0).getDate();
+  const by = {};
+  list.forEach(d => { if (d.start.slice(0, 7) === CALM) (by[d.start] = by[d.start] || []).push(d); });
+  Object.values(by).forEach(a => a.sort((p, q) => (p.st === '종료') - (q.st === '종료') || (q.grad || 0) - (p.grad || 0)));
+  const prev = ms.filter(x => x < CALM).pop(), next = ms.find(x => x > CALM);
+  const chev = d => `<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${d}"/></svg>`;
+  let cells = '', n = 0, tn = 0;
+  for (let k = 0; k < lead; k++) cells += '<div class="cd out"></div>';
+  for (let dd = 1; dd <= days; dd++) {
+    const key = `${CALM}-${String(dd).padStart(2, '0')}`, a = by[key] || [], wk = (lead + dd - 1) % 7;
+    n += a.length; if (key === TODAY) tn = a.length;
+    cells += `<div class="cd${key === TODAY ? ' today' : ''}${key < TODAY ? ' gone' : ''}${wk >= 5 ? ' we' : ''}" data-day="${key}"><span class="dn">${String(dd).padStart(2, '0')}</span>${key === TODAY ? '<span class="tl">오늘</span>' : ''}${a.length ? `<button class="cstk" data-ids="${a.map(d => d.id).join(' ')}" aria-label="${m}월 ${dd}일 시작 ${a.length}개: ${esc(a.slice(0, 3).map(d => d.title).join(', '))}${a.length > 3 ? ' 외' : ''}">${a.slice(0, 5).map(d => `<img src="${esc(d.th || d.img)}" alt="" data-id="${d.id}" class="${d.st === '종료' ? 'past' : ''}" decoding="async">`).join('')}</button>${a.length > 1 ? `<b class="cn" aria-hidden="true">${a.length}</b>` : ''}` : ''}</div>`;
+  }
+  for (let k = (7 - (lead + days) % 7) % 7; k > 0; k--) cells += '<div class="cd out"></div>';
+  $('#main').innerHTML = `<section class="cal" aria-label="${y}년 ${m}월 달력">
+    <header class="calh"><div class="cm"><b>${m}</b><span>${y}</span></div>
+      <p>${n ? `<span>${m}월 시작 전시<b>${n}</b></span>${CALM === now ? `<span class="tk">오늘 시작<b>${tn}</b></span><span>지금 진행 중<b>${list.filter(d => d.st === '진행중').length}</b></span>` : ''}` : '<span>이 달에 시작하는 전시가 없어요</span>'}</p>
+      <div class="cnav"><button class="ib" data-cm="${prev || ''}"${prev ? '' : ' disabled'} aria-label="이전 달">${chev('M9 2L4 7l5 5')}</button>${CALM !== now ? `<button class="ibtn" data-cm="${now}">이번 달</button>` : ''}<button class="ib" data-cm="${next || ''}"${next ? '' : ' disabled'} aria-label="다음 달">${chev('M5 2l5 5-5 5')}</button></div></header>
+    <div class="cw" aria-hidden="true">${['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'].map(w => `<span>${w}</span>`).join('')}</div>
+    <div class="cg">${cells}</div></section>`;
+  calFit();
+  document.querySelectorAll('.cstk').forEach(st => st.querySelectorAll('img').forEach((im, j) => calPose(im, j)));
+  if (!RM) {
+    document.querySelectorAll('.cstk').forEach((st, i) => st.animate([{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'none' }], { duration: 360, delay: Math.min(i * 25, 400), easing: EASE, fill: 'backwards' }));
+    CALT = setInterval(calCycle, 2800);
+  }
+}
+// 스크롤 없이 한 달이 한 화면에 들어오게 줄 높이를 창 높이로 정한다
+function calFit() {
+  const cg = document.querySelector('.cg'); if (!cg) return;
+  const m = $('#main'), cs = getComputedStyle(m), rows = cg.children.length / 7;
+  const top = cg.getBoundingClientRect().top - m.getBoundingClientRect().top + m.scrollTop;
+  const avail = m.clientHeight - top - parseFloat(cs.paddingBottom) - 2;
+  document.querySelector('.cal').style.setProperty('--rh', Math.max(innerWidth <= 860 ? 60 : 70, Math.floor(avail / rows)) + 'px');
+}
+let calRz; window.addEventListener('resize', () => { if (S.tab === 'cal') { clearTimeout(calRz); calRz = setTimeout(calFit, 60); } });
+// 맨 위 장을 살짝 들어 올렸다가 맨 뒤로 넣는다. 칸마다 시차를 두고, 올려 둔 칸·숨은 탭에서는 멈춘다.
+function calCycle() {
+  if (document.hidden || S.tab !== 'cal') return;
+  CALTICK++;
+  [...document.querySelectorAll('.cstk')].forEach((st, i) => {
+    const im = [...st.querySelectorAll('img')];
+    if (im.length < 2 || st.matches(':hover') || st.matches(':focus-visible') || (i + CALTICK) % 2) return;
+    setTimeout(() => {
+      if (!st.isConnected || st.matches(':hover')) return;
+      const k = im.length, top = im.find(x => x.dataset.j === '0'); if (!top) return;
+      const from = top.style.transform;
+      im.forEach(x => { const j = +x.dataset.j; if (x !== top) calPose(x, j - 1); });
+      calPose(top, k - 1); top.style.zIndex = 11; // 들리는 동안은 맨 앞, 내려앉으면서 맨 뒤로
+      const to = top.style.transform;
+      top.animate([{ transform: from }, { transform: `translate(-50%,-50%) translate(0,${-24*calK()}%) rotate(${-8*calK()}deg)`, offset: .42 }, { transform: to }], { duration: 760, easing: 'cubic-bezier(.3,.7,.2,1)' });
+      setTimeout(() => { if (top.dataset.j === String(k - 1)) top.style.zIndex = 10 - (k - 1); }, 330);
+    }, (i % 9) * 110);
+  });
+}
+// 올린 칸의 맨 위 전시가 끝나는 날까지 줄을 긋는다(이 달 안에서)
+function calRun(st) {
+  document.querySelectorAll('.cd.run').forEach(c => c.classList.remove('run', 'rs', 're'));
+  if (!st) return;
+  const top = st.querySelector('img[data-j="0"]'), d = top && byId[top.dataset.id]; if (!d) return;
+  const cs = [...document.querySelectorAll('.cd[data-day]')].filter(c => c.dataset.day >= d.start && c.dataset.day <= d.end);
+  cs.forEach((c, i) => { c.classList.add('run'); c.style.setProperty('--rc', CATC[d.cat] || '#fff'); if (!i) c.classList.add('rs'); if (i === cs.length - 1 && c.dataset.day === d.end) c.classList.add('re'); });
+}
+$('#main').addEventListener('mouseover', e => { if (S.tab !== 'cal') return; const st = e.target.closest('.cstk'); if (st) calRun(st); });
+$('#main').addEventListener('mouseout', e => { if (S.tab !== 'cal') return; const st = e.target.closest('.cstk'); if (st && !st.contains(e.relatedTarget)) calRun(null); });
+$('#main').addEventListener('click', e => {
+  if (S.tab !== 'cal') return;
+  const nb = e.target.closest('[data-cm]'); if (nb) { if (nb.dataset.cm) { CALM = nb.dataset.cm; renderCal(); } return; }
+  const st = e.target.closest('.cstk'); if (!st) return;
+  const order = [...st.querySelectorAll('img')].sort((a, b) => a.dataset.j - b.dataset.j).map(x => x.dataset.id);
+  const rest = st.dataset.ids.split(' ').filter(id => !order.includes(id));
+  const list = [...order, ...rest].map(id => byId[id]).filter(Boolean);
+  if (list[0].id === cur) closeDrawer(); else openDrawer(list[0].id, { list });
+});
 
 /* ---------- 상세: 딤 없이 오른쪽에 붙고, 보드는 그대로 보이고 스크롤된다 ---------- */
 let cur = null, curList = [], LASTCARD = null;
@@ -1723,7 +1878,7 @@ function hashApply() {
   S.month = /^\d{4}-\d\d$/.test(p.get('m') || '') ? p.get('m') : '';
   S.sort = ['now','new','old','end'].includes(p.get('sort')) ? p.get('sort') : 'new';
   S.inst = new Set(list('inst')); S.genre = new Set(list('genre')); S.tag = new Set(list('tag'));
-  S.tab = ['board','map','pins'].includes(p.get('t')) ? p.get('t') : 'board';
+  S.tab = ['board','cal','map','pins'].includes(p.get('t')) ? p.get('t') : 'board';
   $('#q').value = S.q;
   return p.get('e');
 }
@@ -1731,7 +1886,8 @@ function hashApply() {
 /* ---------- 공통 ---------- */
 function render() {
   document.body.dataset.tab = S.tab;
-  if (S.tab==='board') renderBoard(); else if (S.tab==='map') renderMap(); else renderPins();
+  if (S.tab!=='cal') clearInterval(CALT);
+  if (S.tab==='board') renderBoard(); else if (S.tab==='map') renderMap(); else if (S.tab==='cal') renderCal(); else renderPins();
   $('#hist').style.display = S.tab==='board' ? '' : 'none';
   $('#main').style.bottom = S.tab==='board' ? '' : '0';
 }
@@ -1755,6 +1911,9 @@ $('#tabs').addEventListener('click', e => {
 });
 $('#q').addEventListener('input', e => { S.q = e.target.value; update(); });
 $('#fbtn').onclick = () => { $('#side').classList.add('on'); $('#scrim').classList.add('on'); };
+const setSide = (cl, save) => { document.body.classList.toggle('sidecl', cl); const b = $('#stog'); b.setAttribute('aria-expanded', String(!cl)); b.setAttribute('aria-label', cl ? '왼쪽 필터 열기' : '왼쪽 필터 닫기'); if (save) { try { localStorage.setItem('sideClosed', cl ? '1' : ''); } catch (e) {} window.dispatchEvent(new Event('resize')); requestAnimationFrame(thumbs); } };
+try { if (localStorage.getItem('sideClosed') === '1') setSide(true); } catch (e) {}
+$('#stog').onclick = () => setSide(!document.body.classList.contains('sidecl'), true);
 document.addEventListener('keydown', e => {
   if (ADDOPEN) { if (e.key==='Escape') closeAdd(); return; }
   if (e.key==='/' && document.activeElement.tagName!=='INPUT') { e.preventDefault(); $('#q').focus(); }
@@ -1782,7 +1941,7 @@ const onNav = () => {
 window.addEventListener('popstate', onNav); window.addEventListener('hashchange', onNav);
 const hideBoot = () => { const bt = $('#boot'); if (!bt) return; bt.classList.add('off'); setTimeout(() => bt.remove(), 400); };
 requestAnimationFrame(() => requestAnimationFrame(hideBoot)); window.addEventListener('load', () => setTimeout(hideBoot, 150));
-const thumbs = () => ['#tabs','#segCat','#segFee'].forEach(s => moveThumb($(s)));
+const thumbs = () => { ['#tabs','#segCat','#segFee'].forEach(s => moveThumb($(s))); document.documentElement.style.setProperty('--tabsw', ($('#tabs').offsetWidth + 28) + 'px'); };
 requestAnimationFrame(thumbs);
 if (window.ResizeObserver) { const ro = new ResizeObserver(thumbs); ['#tabs','#segCat','#segFee'].forEach(s => ro.observe($(s))); }
 if (document.fonts) { document.fonts.ready.then(thumbs); document.fonts.addEventListener && document.fonts.addEventListener('loadingdone', thumbs); }
