@@ -459,7 +459,8 @@ body.dopen .mapv{right:var(--dw)}
   .drawer{top:auto;left:0;right:0;width:auto;height:58vh;flex-direction:row;border-left:0;border-top:1px solid var(--line2)}
   .drawer{display:grid;grid-template-columns:50% 1fr;grid-template-rows:auto minmax(0,1fr)}
   .dhead{grid-column:1 / -1}
-  .drawer .dimg{grid-column:1;grid-row:2}
+  .drawer .dimg{grid-column:1;grid-row:2;align-items:flex-start;padding-top:14px} /* 키 큰 폰에서 포스터가 아래로 처지지 않게 */
+  .drawer{background:rgba(12,12,14,.97)} /* 시트 아래 보드가 비쳐 깨져 보이지 않게 */
   .drawer .dmeta{grid-column:2;grid-row:2;overflow:auto;border-top:0;border-left:1px solid var(--line)}
   .nav{display:none}
   body.dopen .main{padding-right:12px;padding-bottom:calc(46vh + var(--hist) + 16px)}
@@ -616,7 +617,7 @@ body.dopen .mapv{right:var(--dw)}
 @media (max-width:860px){.drel{display:none}.dhead h2{font-size:15px}.dfoot{position:static}}
 /* 2026-11-04 보완: 소개·검색 노출·모바일 필터 줄·상세 버튼 */
 .intro{display:flex;flex-direction:column;gap:14px;align-items:flex-start;margin:0 0 18px;padding:4px 0 20px;border-bottom:1px solid var(--line)}
-.gradband{margin:0 0 16px;max-width:640px;font-size:13px;line-height:1.6;color:var(--dim)}.gradband b{display:block;margin-bottom:2px;font-size:15px;font-weight:700;color:#fff}
+.gradband{margin:0 0 16px;max-width:640px;font-size:13px;line-height:1.6;color:var(--dim);word-break:keep-all}.gradband b{display:block;margin-bottom:2px;font-size:15px;font-weight:700;color:#fff}
 .intro .brand{display:block;margin-bottom:10px;font-size:12px;font-weight:600;letter-spacing:.02em;color:var(--dim)}
 .intro b{display:block;margin-bottom:6px;font-size:20px;font-weight:700;color:#fff}
 .intro p{max-width:620px;color:var(--dim);font-size:13px;line-height:1.65}
@@ -912,7 +913,7 @@ function renderBoard() {
   if (S.fee) { const unk = apply('fee').filter(d => !d.fee).length; af.push(['fee', `무료로 확인된 전시만${unk ? ` (요금 모름 ${unk}건 빠짐)` : ''}`]); }
   let h = af.length ? `<div class="active-filters">${af.map(([k,l])=>`<button class="af" data-x="${k}">${esc(l)} 해제</button>`).join('')}</div>` : '';
   if (!anyFilter() && !INTRO_OFF) h = introHtml() + h;
-  else if (S.cat === '졸업 전시' && !S.q) { const all = D.filter(d => d.cat === '졸업 전시'), n = all.filter(d => d.st !== '종료').length; h = `<p class="gradband"><b>전시 포스터 아카이브</b>11~12월 대학 졸업전시 포스터를 날짜·지도와 함께 모았어요. 지금 열리거나 곧 열리는 ${n}장${all.length > n ? `, 끝난 ${all.length - n}장` : ''}이에요. 포스터를 누르면 기간과 장소가 열려요.</p>` + h; }
+  else if (S.cat === '졸업 전시' && !S.q) { h = `<p class="gradband"><b>전시 포스터 아카이브</b>11~12월 대학 졸업전시 포스터를 날짜·지도와 함께 모았어요.</p>` + h; }
   if (!list.length) { $('#main').innerHTML = h + `<div class="empty">조건에 맞는 전시가 없어요. 필터를 하나씩 풀어 보세요.<br><button class="reset" id="reset2" style="width:auto;margin-top:14px">필터 초기화</button></div>`; return; }
   if (S.sort==='now') {
     const by = {'진행중':[], '예정':[], '종료':[]}; list.forEach(d => by[d.st].push(d));
