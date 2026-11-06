@@ -649,7 +649,7 @@ body.dopen .mapv{right:var(--dw)}
 
 /* ---------- 달력 탭: 시작하는 날 칸에 포스터가 겹쳐 쌓인다 ---------- */
 body[data-tab=cal] .sz{display:none}
-.cal{max-width:1680px}
+.cal{max-width:1680px;margin:0 auto} /* 넓은 화면에서도 좌우 여백이 같게 가운데 */
 .calh{display:flex;align-items:center;gap:22px;margin:0 0 12px;flex-wrap:wrap}
 .cm{display:flex;align-items:flex-start;gap:6px;line-height:.8}
 .cm b{font-size:60px;font-weight:800;letter-spacing:-.05em;font-variant-numeric:tabular-nums}
@@ -666,7 +666,8 @@ body[data-tab=cal] .sz{display:none}
 .cw span{padding-left:7px}
 .cg{border-top:1px solid var(--line2);border-left:1px solid var(--line2)}
 .cd{position:relative;height:var(--rh,150px);border-right:1px solid var(--line2);border-bottom:1px solid var(--line2);min-width:0;overflow:hidden}
-body[data-tab=cal] .main{padding-bottom:14px}
+body[data-tab=cal] .main{padding-bottom:22px}
+@media (min-width:861px){body[data-tab=cal] .main{padding-left:calc(var(--side) + 40px);padding-right:40px;padding-bottom:36px}body[data-tab=cal] .calh{margin-top:10px;margin-bottom:16px}}
 .cd.gone .dn{opacity:.45}.cd.gone .cstk{opacity:.5}
 .cd.today{background:rgba(255,255,255,.06);box-shadow:inset 0 0 0 2px #fff}
 .cd.today .tl{position:absolute;left:38px;top:7px;z-index:14;font-size:11px;font-weight:700;color:#fff;pointer-events:none}
